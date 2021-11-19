@@ -1,0 +1,10 @@
+.DrumPad-style{
+    background: #424242;
+    border-radius: 10%;
+    box-shadow: 5px 10px rgb(90, 90, 90),
+    10px 15px rgb(0, 0, 0);
+}
+
+.progressBars-style{
+    width: 100%;
+}
