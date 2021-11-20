@@ -55,26 +55,50 @@ const DrumPad = ({openPopup = undefined}) => {
 
     const changeTrack = async (e) => {
         // remove track
-        debugger;
+        let sameTracks = [];
         for (let index = 0; index < MasterTrack.length; index++) {
             if (MasterTrack[index].id === e) {
-                for (let index = 0; index < CurrentActiveTracks.length; index++) {
-                    // stop sound
-                    if(CurrentActiveTracks[index].id === e){
-                        SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
+                sameTracks.push(MasterTrack[index]);
+                if(MasterTrack[index].endLoop === -1){
+                    for (let index = 0; index < CurrentActiveTracks.length; index++) {
+                        // stop sound
+                        if(CurrentActiveTracks[index].id === e){
+                            SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
+                        }
                     }
+                    // remove sound
+                    if(MasterTrack[index].loop !== LoopNumber){
+                        MasterTrack[index].endLoop = LoopNumber;
+                        setMasterTrack(MasterTrack);
+                    } 
+                    else{
+                        MasterTrack.splice(index, 1);
+                        setMasterTrack(MasterTrack);
+                    }
+                    return;
                 }
-                // remove sound
-                MasterTrack[index].endLoop = LoopNumber;
-                setMasterTrack(MasterTrack);
-                return;
             }
         }
-        // add sound
-        const trackModel = TrackModel(e, sounds[e], LoopNumber);
-        const tmp = MasterTrack;
-        tmp.push(trackModel);
-        setMasterTrack(tmp);
+        // add sound if not in the same loop
+        debugger;
+        if(sameTracks.length === 0){
+            const trackModel = TrackModel(e, sounds[e], LoopNumber);
+            const tmp = MasterTrack;
+            tmp.push(trackModel);
+            setMasterTrack(tmp);
+        }
+        else{
+            for (let index = 0; index < sameTracks.length; index++) {
+                // track in the same loop            
+                if(sameTracks[index].loop === LoopNumber){
+                    return;
+                }
+            }
+            const trackModel = TrackModel(e, sounds[e], LoopNumber);
+            const tmp = MasterTrack;
+            tmp.push(trackModel);
+            setMasterTrack(tmp);
+        }
     };
 
     const stopTimerFunction = () => {
@@ -84,6 +108,8 @@ const DrumPad = ({openPopup = undefined}) => {
         for (let index = 0; index < CurrentActiveTracks.length; index++) {
             SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
         }
+        setCurrentActiveTracks([]);
+        setLoopNumber(0);
     };
 
     const pauseSound = (e) => {
