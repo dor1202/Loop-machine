@@ -62,7 +62,7 @@ const DrumPad = () => {
         }
     };
 
-    const changeTrack = (e) => {
+    const changeTrack = async (e) => {
         // remove track
         for (let index = 0; index < MasterTrack.length; index++) {
             if (MasterTrack[index].id === e) {
@@ -102,7 +102,7 @@ const DrumPad = () => {
         recordLoop++;
     };
 
-    const startRecord = (e) => {
+    const startRecord = async (e) => {
         if(IsRecording){
             clearInterval(RecordTimer);
             setIsRecording(false);
@@ -110,13 +110,7 @@ const DrumPad = () => {
             let mergeArray = [];
             for (let i = 0; i < MasterTrack.length; i++) {
                 // find number in array
-                for (let j = 0; j < soundArr.length; j++) {
-                    if(soundArr[j] === MasterTrack[i].music){
-                        const id = j;
-                        mergeArray.push(id);
-                        break;
-                    }
-                }
+                mergeArray.push(MasterTrack[i].music);
             }
             MergeService(mergeArray, RecordLength)
         }
