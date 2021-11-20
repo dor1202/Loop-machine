@@ -1,20 +1,20 @@
 .inActiveDot {
     margin: auto;
-    height: 10px;
-    width: 10px;
+    height: 1.5vh;
+    width: 0.7vw;
     border-radius: 50%;
     background-color: red;
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 0.5vw red;
     animation: ease-in-out infinite 1.6s inActiveAnimation;
   }
   
   .activeDot {
     margin: auto;
-    height: 10px;
-    width: 10px;
+    height: 1.5vh;
+    width: 0.7vw;
     border-radius: 50%;
     background-color: yellow;
-    box-shadow: 0 0 100px yellow;
+    box-shadow: 0 0 0.5vw yellow;
     animation: ease-in-out infinite 1.6s activeAnimation;
   }
   @keyframes activeAnimation {
@@ -22,11 +22,11 @@
     40%,
     100% {
       /* transform: scale(0.2); */
-      box-shadow: 0 0 5px yellow;
+      box-shadow: 0 0 1vw yellow;
     }
     20% {
       /* transform: scale(1); */
-      box-shadow: 0 0 20px yellow;
+      box-shadow: 0 0 2vw yellow;
     }
   }
   @keyframes inActiveAnimation {
@@ -34,10 +34,10 @@
     40%,
     100% {
       /* transform: scale(0.2); */
-      box-shadow: 0 0 5px red;
+      box-shadow: 0 0 1vw red;
     }
     20% {
       /* transform: scale(1); */
-      box-shadow: 0 0 20px red;
+      box-shadow: 0 0 2vw red;
     }
   }

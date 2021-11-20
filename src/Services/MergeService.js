@@ -37,17 +37,20 @@ const MergeService = async (masterTrack, length) => {
     });
     
     // trim
-    let finalSound = undefined;
-    await audioBufferSlice(res, 0, length * 1000, function(error, slicedAudioBuffer) {
-        if (error) {
-          console.error(error);
-        }
-        else {
-            const output = crunker.export(slicedAudioBuffer, "audio/mp3");
-            finalSound = output;
-        }
-    });
-    return finalSound;
+    if(res !== undefined){
+        let finalSound = undefined;
+        await audioBufferSlice(res, 0, length * 1000, function(error, slicedAudioBuffer) {
+            if (error) {
+              console.error(error);
+            }
+            else {
+                const output = crunker.export(slicedAudioBuffer, "audio/mp3");
+                finalSound = output;
+            }
+        });
+        return finalSound;
+    }
+    else return null;
 };
 
 export default MergeService;

@@ -15,7 +15,7 @@ const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined }) => {
             <button onClick={clickButton}  className="pushable space">
             <span className="edgeOrange"></span>
             <span className="frontOrange">
-                <img alt='err' src={icon} />
+                <img className='imageLogo-style' alt='err' src={icon} />
                 <DrumPadLight isOn={IsSelected}/>
             </span>
             </button>

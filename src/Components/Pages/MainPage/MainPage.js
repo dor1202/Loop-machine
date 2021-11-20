@@ -9,7 +9,9 @@ const MainPage = () => {
     const [OpenBeforeTestPop, setOpenBeforeTestPop] = useState(false);
     const [FinalSound, setFinalSound] = useState(null);
 
-    const downloadMusic = (e) => crunker.download(FinalSound.blob)
+    const downloadMusic = (e) => {
+        if(FinalSound !== null) crunker.download(FinalSound.blob);
+    };
 
     const receiveFinalSound = (e) => {
         setFinalSound(e);

@@ -10,7 +10,7 @@
     background: transparent;
     padding: 0;
     cursor: pointer;
-    outline-offset: 4px;
+    outline-offset: 1vw;
     transition: filter 250ms;
   }
 
@@ -20,7 +20,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 0.1vw;
     background: hsl(0deg 0% 0% / 0.25);
     will-change: transform;
     transform: translateY(2px);
@@ -33,27 +33,26 @@
   .frontOrange{
     display: block;
     position: relative;
-    padding: 12px 42px;
-    border-radius: 12px;
-    font-size: 1.25rem;
+    padding: 0.6vw 3vw;
+    border-radius: 0.6vw;
     color: white;
     background: rgb(149, 149, 149);
     will-change: transform;
-    transform: translateY(-4px);
+    transform: translateY(-0.2vw);
     transition:
       transform
       600ms
       cubic-bezier(.3, .7, .4, 1);
   }
   .pushable:hover .frontOrange {
-    transform: translateY(-6px);
+    transform: translateY(-0.4vw);
     transition:
       transform
       250ms
       cubic-bezier(.3, .7, .4, 1.5);
   }
   .pushable:active .frontOrange {
-    transform: translateY(-2px);
+    transform: translateY(-0.2vw);
     transition: transform 34ms;
   }
   .edgeOrange {
@@ -62,6 +61,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 1vw;
     background: linear-gradient(315deg, #020202 0%, #7b7b7b 74%);
+  }
+
+  .imageLogo-style{
+    width: 3vw;
   }

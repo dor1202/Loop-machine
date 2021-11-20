@@ -37,7 +37,7 @@ const DrumPad = ({openPopup = undefined}) => {
                 console.log(MasterTrack[index]);
                 if (MasterTrack[index].endLoop === -1) {
                     let a = SoundObjGenerator.GenerateHowl(MasterTrack[index].music);
-                    activeTracks.push(a);
+                    activeTracks.push({id: index, howler: a});
                     SoundService.howlPlayHandler(a);
                 }
             }
@@ -57,6 +57,12 @@ const DrumPad = ({openPopup = undefined}) => {
         // remove track
         for (let index = 0; index < MasterTrack.length; index++) {
             if (MasterTrack[index].id === e) {
+                for (let index = 0; index < CurrentActiveTracks.length; index++) {
+                    // stop sound
+                    if(CurrentActiveTracks[index].id === e){
+                        SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
+                    }
+                }
                 // remove sound
                 MasterTrack[index].endLoop = LoopNumber;
                 setMasterTrack(MasterTrack);
@@ -75,7 +81,7 @@ const DrumPad = ({openPopup = undefined}) => {
         setIsPlaying(!IsPlaying);
         // stop sound
         for (let index = 0; index < CurrentActiveTracks.length; index++) {
-            SoundService.howlPtopHandler(CurrentActiveTracks[index]);
+            SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
         }
     };
 
@@ -134,8 +140,9 @@ const DrumPad = ({openPopup = undefined}) => {
     return (
         <div>
             <div>
-                <Button icon={IsPlaying ? 'pause' : 'play'} onClick={pauseSound}></Button>
+                <Button className='playButton-style' icon={IsPlaying ? 'pause' : 'play'} onClick={pauseSound}></Button>
                 <Button
+                    className='recordButton-style'
                     onClick={startRecord}
                     color='red'
                     content='Record'

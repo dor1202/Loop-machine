@@ -1,10 +1,33 @@
 .DrumPad-style{
     background: #424242;
     border-radius: 10%;
-    box-shadow: 5px 10px rgb(90, 90, 90),
-    10px 15px rgb(0, 0, 0);
+    box-shadow: 0.2vw 0.4vw rgb(90, 90, 90),
+    0.5vw 0.7vw rgb(0, 0, 0);
+    width: 50vw;
+    height: 60vh;
 }
 
 .progressBars-style{
     width: 100%;
+}
+
+.playButton-style{
+    width: 3vw !important;
+    height: 5vh !important;
+    font-size: 1vw !important;
+}
+
+.playButton-style i{
+    font-size: 1vw !important;
+}
+
+.recordButton-style{
+    width: 14vw !important;
+    height: 5vh !important;
+    font-family: Cursive, "Times New Roman", Times, serif !important;
+    font-size: 1vw !important;
+}
+
+.recordButton-style i{
+    font-size: 1vw !important;
 }
