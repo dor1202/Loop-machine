@@ -12,7 +12,7 @@ const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined }) => {
 
     return (
         <>
-            <button onClick={clickButton}  className="pushable space">
+            <button onClick={clickButton}  className="pushable">
             <span className="edgeOrange"></span>
             <span className="frontOrange">
                 <img className='imageLogo-style' alt='err' src={icon} />

@@ -11,6 +11,8 @@ import Images from "Services/StaticFiles/Images";
 import Sounds from "Services/StaticFiles/Sounds";
 
 const DrumPad = ({openPopup = undefined}) => {
+    // TODO: the add and remove button don't work right
+    // TODO: make the site more responsive
     const images = Images;
     const sounds = Sounds;
 

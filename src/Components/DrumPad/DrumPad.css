@@ -14,20 +14,68 @@
 .playButton-style{
     width: 3vw !important;
     height: 5vh !important;
-    font-size: 1vw !important;
 }
 
-.playButton-style i{
-    font-size: 1vw !important;
+
+@media screen and (max-width: 592px) {
+    .playButton-style{
+        font-size: 3vw !important;
+        width: 8vw !important;
+    }
+    .playButton-style i{
+        font-size: 3vw !important;
+    }
+    .recordButton-style{
+        font-size: 3vw !important;
+        width: 45vw !important;
+    }
+    .recordButton-style i{
+        font-size: 3vw !important;
+    }
+}
+
+@media screen and (min-width: 592px) {
+    .playButton-style{
+        font-size: 1vw !important;
+    }
+    .playButton-style i{
+        font-size: 1vw !important;
+    }
+    .recordButton-style{
+        font-size: 1vw !important;
+        width: 14vw !important;
+    }
+    .recordButton-style i{
+        font-size: 1vw !important;
+    }
+}
+
+@media screen and (max-height: 492px) {
+    .playButton-style{
+        font-size: 2vw !important;
+    }
+    .playButton-style i{
+        font-size: 3vw !important;
+    }
+    .recordButton-style{
+        font-size: 2vw !important;
+    }
+}
+
+@media screen and (max-height: 392px) {
+    .playButton-style{
+        font-size: 2vw !important;
+    }
+    .playButton-style i{
+        font-size: 3vw !important;
+    }
+    .recordButton-style{
+        width: 46vw !important;
+        font-size: 2vw !important;
+    }
 }
 
 .recordButton-style{
-    width: 14vw !important;
     height: 5vh !important;
     font-family: Cursive, "Times New Roman", Times, serif !important;
-    font-size: 1vw !important;
-}
-
-.recordButton-style i{
-    font-size: 1vw !important;
 }

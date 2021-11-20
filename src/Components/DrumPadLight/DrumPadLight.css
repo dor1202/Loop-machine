@@ -17,6 +17,42 @@
     box-shadow: 0 0 0.5vw yellow;
     animation: ease-in-out infinite 1.6s activeAnimation;
   }
+  @media (min-width:592px) and (max-width:792px) {
+    .inActiveDot {
+      height: 0.8vh;
+      width: 0.8vw;
+    }
+    
+    .activeDot {
+      height: 0.8vh;
+      width: 0.8vw;
+    }
+  }
+
+  @media screen and (max-width: 592px) {
+    .inActiveDot {
+      height: 1vh;
+      width: 1.5vw;
+    }
+    
+    .activeDot {
+      height: 1vh;
+      width: 1.5vw;
+    }
+  }
+  
+  @media screen and (min-width: 792px) {
+    .inActiveDot {
+      height: 1.5vh;
+      width: 0.7vw;
+    }
+    
+    .activeDot {
+      height: 1.5vh;
+      width: 0.7vw;
+    }
+  }
+
   @keyframes activeAnimation {
     0%,
     40%,

@@ -2,8 +2,6 @@
     border-radius: 3%;
     background: rgba(255, 255, 255, 0.1);
     border: 0.3vw double black;
-    width: 25vw;
-    margin-left: 2vw;
 }
 
 .App-logo{
@@ -11,12 +9,41 @@
     background: rgba(255, 255, 255, 0.1);
     border: 0.1vw solid black;
     object-fit: contain;
-    width: 4vw;
 }
 
 .title-style{
-    font-size: 2vw;
     color: white;
     font-family: Cursive, "Times New Roman", Times, serif;
-    -webkit-text-stroke: 0.04vw black;
+}
+
+@media screen and (max-width: 592px) {
+    .logo-style{
+        width: 46vw;
+        margin-left: 2vw;
+    }
+    
+    .App-logo{
+        width: 8vw;
+    }
+    
+    .title-style{
+        font-size: 4vw;
+        -webkit-text-stroke: 0.06vw black;
+    }
+}
+
+@media screen and (min-width: 592px) {
+    .logo-style{
+        width: 25vw;
+        margin-left: 2vw;
+    }
+    
+    .App-logo{
+        width: 4vw;
+    }
+    
+    .title-style{
+        font-size: 2vw;
+        -webkit-text-stroke: 0.04vw black;
+    }
 }
