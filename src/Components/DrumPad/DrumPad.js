@@ -11,8 +11,6 @@ import Images from "Services/StaticFiles/Images";
 import Sounds from "Services/StaticFiles/Sounds";
 
 const DrumPad = ({openPopup = undefined}) => {
-    // TODO: the add and remove button don't work right
-    // TODO: make the site more responsive
     const images = Images;
     const sounds = Sounds;
 
@@ -39,7 +37,7 @@ const DrumPad = ({openPopup = undefined}) => {
                 console.log(MasterTrack[index]);
                 if (MasterTrack[index].endLoop === -1) {
                     let a = SoundObjGenerator.GenerateHowl(MasterTrack[index].music);
-                    activeTracks.push({id: index, howler: a});
+                    activeTracks.push({id: MasterTrack[index].id, howler: a});
                     SoundService.howlPlayHandler(a);
                 }
             }
@@ -57,6 +55,7 @@ const DrumPad = ({openPopup = undefined}) => {
 
     const changeTrack = async (e) => {
         // remove track
+        debugger;
         for (let index = 0; index < MasterTrack.length; index++) {
             if (MasterTrack[index].id === e) {
                 for (let index = 0; index < CurrentActiveTracks.length; index++) {
