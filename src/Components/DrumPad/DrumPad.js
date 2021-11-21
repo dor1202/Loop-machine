@@ -4,13 +4,13 @@ import { Button, Divider, Grid } from "semantic-ui-react";
 import SoundService from "Services/SoundService";
 import MergeService from "Services/MergeService";
 import TrackModel from "Models/TrackModel";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import TimePipe from "Pipes/TimePipe";
 import Images from "Models/Images";
 import Sounds from "Models/Sounds";
 import './DrumPad.css';
 
-const DrumPad = ({openPopup = undefined}) => {
+const DrumPad = ({ openPopup = undefined }) => {
     // States
     const images = Images;
     const sounds = Sounds;
@@ -28,6 +28,7 @@ const DrumPad = ({openPopup = undefined}) => {
     const [RecordLength, setRecordLength] = useState(0);
     const [TimerLoop, setTimerLoop] = useState(0);
     let recordLoop = 0;
+    const fileInputRef = useRef({});
 
     // Functions
     const timerFunction = () => {
@@ -39,7 +40,7 @@ const DrumPad = ({openPopup = undefined}) => {
                 console.log(MasterTrack[index]);
                 if (MasterTrack[index].endLoop === -1) {
                     let a = SoundObjGenerator.GenerateHowl(MasterTrack[index].music);
-                    activeTracks.push({id: MasterTrack[index].id, howler: a});
+                    activeTracks.push({ id: MasterTrack[index].id, howler: a });
                     SoundService.howlPlayHandler(a);
                 }
             }
@@ -63,14 +64,14 @@ const DrumPad = ({openPopup = undefined}) => {
                 similarSoundsInMaster.push(MasterTrack[index]);
 
                 // not an ended same sound, for the ability to add it in next loops again
-                if(MasterTrack[index].endLoop === -1){
+                if (MasterTrack[index].endLoop === -1) {
                     for (let index = 0; index < CurrentActiveTracks.length; index++) {
                         // stop sound
-                        if(CurrentActiveTracks[index].id === e)
+                        if (CurrentActiveTracks[index].id === e)
                             SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
                     }
                     // remove sound if already exist in the loop number
-                    if(MasterTrack[index].loop !== LoopNumber) MasterTrack[index].endLoop = LoopNumber;
+                    if (MasterTrack[index].loop !== LoopNumber) MasterTrack[index].endLoop = LoopNumber;
                     else MasterTrack.splice(index, 1);
                     setMasterTrack(MasterTrack);
 
@@ -79,11 +80,11 @@ const DrumPad = ({openPopup = undefined}) => {
             }
         }
         // add sound if not in the same loop
-        if(similarSoundsInMaster.length === 0) addSound(e, sounds[e], LoopNumber);
-        else{
+        if (similarSoundsInMaster.length === 0) addSound(e, sounds[e], LoopNumber);
+        else {
             for (let index = 0; index < similarSoundsInMaster.length; index++) {
                 // track in the same loop            
-                if(similarSoundsInMaster[index].loop === LoopNumber) return;
+                if (similarSoundsInMaster[index].loop === LoopNumber) return;
             }
             addSound(e, sounds[e], LoopNumber);
         }
@@ -132,7 +133,7 @@ const DrumPad = ({openPopup = undefined}) => {
             // create downloadable track
             const finalSound = await MergeService(MasterTrack, RecordLength);
             stopTimerFunction();
-            openPopup(finalSound);
+            openPopup(finalSound, MasterTrack);
         }
         else {
             let timer = setInterval(recordTimerFunction, 1000);
@@ -144,7 +145,7 @@ const DrumPad = ({openPopup = undefined}) => {
     const createButtons = () => {
         let elements = [];
         for (let index = 0; index < 3; index++) {
-            elements.push( <Grid.Row> {createRow(index)} </Grid.Row> );
+            elements.push(<Grid.Row> {createRow(index)} </Grid.Row>);
         }
         return elements;
     };
@@ -160,9 +161,38 @@ const DrumPad = ({openPopup = undefined}) => {
         return elements;
     };
 
+    const uploadSound = (e) => {
+        const fileReader = new FileReader();
+        fileReader.readAsText(e.target.files[0], "UTF-8");
+        fileReader.onload = e => {
+            const uploadJsonData = JSON.parse(e.target.result);
+            setMasterTrack(uploadJsonData);
+            updateLightAfterUpload(uploadJsonData);
+        };
+    };
+
+    const updateLightAfterUpload = (uploadJsonData) => {
+        for (let index = 0; index < uploadJsonData.length; index++) {
+            // check if in first loop
+            console.log(uploadJsonData[index].id);
+            if(uploadJsonData[index].loop === 0){
+                // show light
+                let a = document.getElementById(uploadJsonData[index].id);
+                console.log(a);
+            }
+        }
+    };
+
     return (
         <div>
             <div>
+                <Button className='playButton-style' icon='upload' onClick={() => fileInputRef.current.click()} type='file'></Button>
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    hidden
+                    onChange={uploadSound}
+                />
                 <Button className='playButton-style' icon={IsPlaying ? 'pause' : 'play'} onClick={pauseSound}></Button>
                 <Button
                     className='recordButton-style'
