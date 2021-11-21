@@ -4,11 +4,11 @@ import { Button, Divider, Grid } from "semantic-ui-react";
 import SoundObjGenerator from "Services/SoundObjGenerator";
 import SoundService from "Services/SoundService";
 import TrackModel from "Models/TrackModel";
-import TimeService from "Services/TimeService";
+import TimePipe from "Pipes/TimePipe";
 import './DrumPad.css';
 import MergeService from "Services/MergeService";
-import Images from "Services/StaticFiles/Images";
-import Sounds from "Services/StaticFiles/Sounds";
+import Images from "Models/Images";
+import Sounds from "Models/Sounds";
 
 const DrumPad = ({openPopup = undefined}) => {
     const images = Images;
@@ -174,7 +174,7 @@ const DrumPad = ({openPopup = undefined}) => {
                     color='red'
                     content='Record'
                     icon='record'
-                    label={{ basic: true, color: 'red', pointing: 'left', content: TimeService(RecordLength) }}
+                    label={{ basic: true, color: 'red', pointing: 'left', content: TimePipe(RecordLength) }}
                 />
             </div>
             <progress className='progressBars-style' value={TimerLoop} max="7"></progress>

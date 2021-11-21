@@ -1,4 +1,4 @@
-const TimeService = (recordSeconds) => {
+const TimePipe = (recordSeconds) => {
     const sec = parseInt(recordSeconds, 10); // convert value to number if it's string
     let hours   = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
@@ -10,4 +10,4 @@ const TimeService = (recordSeconds) => {
     return hours+':'+minutes+':'+seconds; // Return is HH : MM : SS
 }
 
-export default TimeService;
+export default TimePipe;
