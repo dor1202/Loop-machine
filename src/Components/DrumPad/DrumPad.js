@@ -30,6 +30,27 @@ const DrumPad = ({ openPopup = undefined }) => {
     let recordLoop = 0;
     const fileInputRef = useRef({});
 
+    const [c0, setc0] = useState(false);
+    const [c1, setc1] = useState(false);
+    const [c2, setc2] = useState(false);
+    const [c3, setc3] = useState(false);
+    const [c4, setc4] = useState(false);
+    const [c5, setc5] = useState(false);
+    const [c6, setc6] = useState(false);
+    const [c7, setc7] = useState(false);
+    const [c8, setc8] = useState(false);
+    const flagArray = [
+        [c0, setc0],
+        [c1, setc1],
+        [c2, setc2],
+        [c3, setc3],
+        [c4, setc4],
+        [c5, setc5],
+        [c6, setc6],
+        [c7, setc7],
+        [c8, setc8]
+    ];
+
     // Functions
     const timerFunction = () => {
         // check music to start
@@ -37,7 +58,6 @@ const DrumPad = ({ openPopup = undefined }) => {
             // play all sound
             let activeTracks = [];
             for (let index = 0; index < MasterTrack.length; index++) {
-                console.log(MasterTrack[index]);
                 if (MasterTrack[index].endLoop === -1) {
                     let a = SoundObjGenerator.GenerateHowl(MasterTrack[index].music);
                     activeTracks.push({ id: MasterTrack[index].id, howler: a });
@@ -155,7 +175,7 @@ const DrumPad = ({ openPopup = undefined }) => {
         for (let index = 0; index < 3; index++) {
             const id = rowNumber * 3 + index;
             elements.push(
-                <Grid.Column> <DrumPadButton buttonId={id} onPress={changeTrack} icon={images[id]} /> </Grid.Column>
+                <Grid.Column> <DrumPadButton buttonId={id} onPress={changeTrack} icon={images[id]} flag={flagArray[id][0]}/> </Grid.Column>
             );
         }
         return elements;
@@ -176,9 +196,8 @@ const DrumPad = ({ openPopup = undefined }) => {
             // check if in first loop
             console.log(uploadJsonData[index].id);
             if(uploadJsonData[index].loop === 0){
-                // show light
-                let a = document.getElementById(uploadJsonData[index].id);
-                console.log(a);
+                // show light after load
+                flagArray[uploadJsonData[index].id][1](true);
             }
         }
     };

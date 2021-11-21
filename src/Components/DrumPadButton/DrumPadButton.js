@@ -1,10 +1,16 @@
 import DrumPadLight from "Components/DrumPadLight/DrumPadLight";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './DrumPadButton.css';
 
-const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined }) => {
+const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined, flag = false }) => {
     // States
     const [IsSelected, setIsSelected] = useState(false);
+
+    useEffect(() => {
+        console.log(flag);
+        if(flag !== false)
+            setIsSelected(true);
+    }, [flag])
 
     // Functions
     const clickButton = (e) => {
