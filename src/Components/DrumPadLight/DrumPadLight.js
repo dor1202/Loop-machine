@@ -1,5 +1,5 @@
-import React from "react";
 import './DrumPadLight.css';
+import React from "react";
 
 const DrumPadLight = ({isOn = false}) => {
     return(

@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import './DrumPadButton.css';
 
 const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined }) => {
+    // States
     const [IsSelected, setIsSelected] = useState(false);
 
+    // Functions
     const clickButton = (e) => {
         setIsSelected(!IsSelected);
         onPress(buttonId);
@@ -13,8 +15,8 @@ const DrumPadButton = ({ buttonId = 0, icon = '', onPress = undefined }) => {
     return (
         <>
             <button onClick={clickButton}  className="pushable">
-            <span className="edgeOrange"></span>
-            <span className="frontOrange">
+            <span className="edgeGrey"></span>
+            <span className="frontGrey">
                 <img className='imageLogo-style' alt='err' src={icon} />
                 <DrumPadLight isOn={IsSelected}/>
             </span>

@@ -21,3 +21,42 @@
     width: 5vw !important;
     font-size: 0.9vw !important;
 }
+
+@media screen and (max-width: 592px) {
+    .backBtn{
+        font-size: 3vw !important;
+        width: 15vw !important;
+    }
+    .backBtn i{
+        font-size: 3vw !important;
+    }
+}
+
+@media screen and (min-width: 592px) {
+    .backBtn{
+        font-size: 1vw !important;
+    }
+    .backBtn i{
+        font-size: 1vw !important;
+    }
+}
+
+@media screen and (max-height: 492px) {
+    .backBtn{
+        font-size: 2vw !important;
+    }
+    .backBtn i{
+        font-size: 3vw !important;
+    }
+}
+
+@media screen and (max-height: 392px) {
+    .backBtn{
+        font-size: 2vw !important;
+        width: 10vw !important;
+
+    }
+    .backBtn i{
+        font-size: 3vw !important;
+    }
+}

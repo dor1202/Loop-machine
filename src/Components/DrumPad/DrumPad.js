@@ -1,33 +1,35 @@
 import DrumPadButton from "Components/DrumPadButton/DrumPadButton";
-import React, { useState } from "react";
-import { Button, Divider, Grid } from "semantic-ui-react";
 import SoundObjGenerator from "Services/SoundObjGenerator";
+import { Button, Divider, Grid } from "semantic-ui-react";
 import SoundService from "Services/SoundService";
-import TrackModel from "Models/TrackModel";
-import TimePipe from "Pipes/TimePipe";
-import './DrumPad.css';
 import MergeService from "Services/MergeService";
+import TrackModel from "Models/TrackModel";
+import React, { useState } from "react";
+import TimePipe from "Pipes/TimePipe";
 import Images from "Models/Images";
 import Sounds from "Models/Sounds";
+import './DrumPad.css';
 
 const DrumPad = ({openPopup = undefined}) => {
+    // States
     const images = Images;
     const sounds = Sounds;
 
+    const [CurrentActiveTracks, setCurrentActiveTracks] = useState([]);
+    const [IsRecording, setIsRecording] = useState(false);
     const [MasterTrack, setMasterTrack] = useState([]);
     const [IsPlaying, setIsPlaying] = useState(false);
-    const [IsRecording, setIsRecording] = useState(false);
-    // Timers
-    let timerLoop = 0;
-    const [Timer, setTimer] = useState(null);
-    const [RecordTimer, setRecordTimer] = useState(null);
-    // for displaying progress bar
     const [LoopNumber, setLoopNumber] = useState(0);
+    // Timers
+    const [RecordTimer, setRecordTimer] = useState(null);
+    const [Timer, setTimer] = useState(null);
+    let timerLoop = 0;
+    // for displaying progress bar
+    const [RecordLength, setRecordLength] = useState(0);
     const [TimerLoop, setTimerLoop] = useState(0);
     let recordLoop = 0;
-    const [RecordLength, setRecordLength] = useState(0);
-    const [CurrentActiveTracks, setCurrentActiveTracks] = useState([]);
 
+    // Functions
     const timerFunction = () => {
         // check music to start
         if (timerLoop === 0) {
@@ -55,50 +57,43 @@ const DrumPad = ({openPopup = undefined}) => {
 
     const changeTrack = async (e) => {
         // remove track
-        let sameTracks = [];
+        let similarSoundsInMaster = [];
         for (let index = 0; index < MasterTrack.length; index++) {
             if (MasterTrack[index].id === e) {
-                sameTracks.push(MasterTrack[index]);
+                similarSoundsInMaster.push(MasterTrack[index]);
+
+                // not an ended same sound, for the ability to add it in next loops again
                 if(MasterTrack[index].endLoop === -1){
                     for (let index = 0; index < CurrentActiveTracks.length; index++) {
                         // stop sound
-                        if(CurrentActiveTracks[index].id === e){
+                        if(CurrentActiveTracks[index].id === e)
                             SoundService.howlPtopHandler(CurrentActiveTracks[index].howler);
-                        }
                     }
-                    // remove sound
-                    if(MasterTrack[index].loop !== LoopNumber){
-                        MasterTrack[index].endLoop = LoopNumber;
-                        setMasterTrack(MasterTrack);
-                    } 
-                    else{
-                        MasterTrack.splice(index, 1);
-                        setMasterTrack(MasterTrack);
-                    }
+                    // remove sound if already exist in the loop number
+                    if(MasterTrack[index].loop !== LoopNumber) MasterTrack[index].endLoop = LoopNumber;
+                    else MasterTrack.splice(index, 1);
+                    setMasterTrack(MasterTrack);
+
                     return;
                 }
             }
         }
         // add sound if not in the same loop
-        debugger;
-        if(sameTracks.length === 0){
-            const trackModel = TrackModel(e, sounds[e], LoopNumber);
-            const tmp = MasterTrack;
-            tmp.push(trackModel);
-            setMasterTrack(tmp);
-        }
+        if(similarSoundsInMaster.length === 0) addSound(e, sounds[e], LoopNumber);
         else{
-            for (let index = 0; index < sameTracks.length; index++) {
+            for (let index = 0; index < similarSoundsInMaster.length; index++) {
                 // track in the same loop            
-                if(sameTracks[index].loop === LoopNumber){
-                    return;
-                }
+                if(similarSoundsInMaster[index].loop === LoopNumber) return;
             }
-            const trackModel = TrackModel(e, sounds[e], LoopNumber);
-            const tmp = MasterTrack;
-            tmp.push(trackModel);
-            setMasterTrack(tmp);
+            addSound(e, sounds[e], LoopNumber);
         }
+    };
+
+    const addSound = (id, sound, loopNumber) => {
+        const trackModel = TrackModel(id, sound, loopNumber);
+        const tmp = MasterTrack;
+        tmp.push(trackModel);
+        setMasterTrack(tmp);
     };
 
     const stopTimerFunction = () => {
@@ -117,6 +112,7 @@ const DrumPad = ({openPopup = undefined}) => {
             stopTimerFunction();
         }
         else {
+            // reset data
             setIsPlaying(!IsPlaying);
             timerLoop = 0;
             let timer = setInterval(timerFunction, 1000);

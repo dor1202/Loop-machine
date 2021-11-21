@@ -1,5 +1,5 @@
 const TimePipe = (recordSeconds) => {
-    const sec = parseInt(recordSeconds, 10); // convert value to number if it's string
+    const sec = parseInt(recordSeconds, 10); // convert value to number if it's string, radix for numerical base
     let hours   = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
     let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds

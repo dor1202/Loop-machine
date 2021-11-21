@@ -1,4 +1,43 @@
 .downloadBtn-style{
-    left: 44%;
+    margin-top: 1vh !important;
     position: relative;
+}
+
+@media screen and (max-width: 592px) {
+    .downloadBtn-style{
+        font-size: 3vw !important;
+        left: 45%;
+    }
+    .downloadBtn-style i{
+        font-size: 3vw !important;
+    }
+}
+
+@media screen and (min-width: 592px) {
+    .downloadBtn-style{
+        font-size: 1vw !important;
+        left: 48%;
+    }
+    .downloadBtn-style i{
+        font-size: 1vw !important;
+    }
+}
+
+@media screen and (max-height: 492px) {
+    .downloadBtn-style{
+        font-size: 2vw !important;
+        left: 48%;
+    }
+    .downloadBtn-style i{
+        font-size: 3vw !important;
+    }
+}
+
+@media screen and (max-height: 392px) {
+    .downloadBtn-style{
+        font-size: 2vw !important;
+    }
+    .downloadBtn-style i{
+        font-size: 3vw !important;
+    }
 }

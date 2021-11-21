@@ -3,31 +3,28 @@ import Crunker from "crunker";
 
 const MergeService = async (masterTrack, length) => {
 
-    // iterative
-    let res = undefined;
+    let mergedSound = undefined;
     let crunker = new Crunker();
     const numberOfLoops = Math.ceil(length / 8);
     for (let i = 0; i < numberOfLoops; i++) {
         // check sounds in the loop
-        let sounds = [];
+        let soundsInTheCurrentLoop = [];
         for (let index = 0; index < masterTrack.length; index++) {
             // in current loop
             if(masterTrack[index].loop <= i && (masterTrack[index].endLoop >= i || masterTrack[index].endLoop === -1))
-                sounds.push(masterTrack[index].music);
+                soundsInTheCurrentLoop.push(masterTrack[index].music);
         }
 
-        if(sounds.length === 0) continue;
+        if(soundsInTheCurrentLoop.length === 0) continue;
 
-        const buffers = await crunker.fetchAudio(...sounds)
+        const buffers = await crunker.fetchAudio(...soundsInTheCurrentLoop)
         const merged = crunker.mergeAudio(buffers);
         
-        // add to res
-        if(res === undefined){
-            res = merged;
-        }
+        // check if first add
+        if(mergedSound === undefined) mergedSound = merged;
         else{
-            const concat = crunker.concatAudio([res,merged]);
-            res = concat;
+            const concat = crunker.concatAudio([mergedSound,merged]);
+            mergedSound = concat;
         }
     }
 
@@ -37,20 +34,17 @@ const MergeService = async (masterTrack, length) => {
     });
     
     // trim
-    if(res !== undefined){
-        let finalSound = undefined;
-        await audioBufferSlice(res, 0, length * 1000, function(error, slicedAudioBuffer) {
-            if (error) {
-              console.error(error);
-            }
-            else {
-                const output = crunker.export(slicedAudioBuffer, "audio/mp3");
-                finalSound = output;
-            }
-        });
-        return finalSound;
-    }
-    else return null;
+    if(mergedSound === undefined) return null;
+
+    let finalSoundAfterSlice = undefined;
+    await audioBufferSlice(mergedSound, 0, length * 1000, function(error, slicedAudioBuffer) {
+        if (error) console.error(error);
+        else {
+            const outputMP3 = crunker.export(slicedAudioBuffer, "audio/mp3");
+            finalSoundAfterSlice = outputMP3;
+        }
+    });
+    return finalSoundAfterSlice;
 };
 
 export default MergeService;

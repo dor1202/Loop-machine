@@ -1,5 +1,5 @@
+import logo from '../../Icons/drum-logo.png';
 import React from "react";
-import logo from './drum-logo.png';
 import './Logo.css';
 
 const Logo = () => {
