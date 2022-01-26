@@ -2,15 +2,6 @@
 
 A sound manipulation and simultaneous audio example.
 
-Starting view
-![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot1.png?raw=true)
-
-Pressed buttons
-![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot2.png?raw=true)
-
-After record
-![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot3.png?raw=true)
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -36,3 +27,13 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 * [react-h5-audio-player](https://www.npmjs.com/package/react-h5-audio-player) - For plying recorded sound
 * [semantic-ui-react](https://www.npmjs.com/package/semantic-ui-react) - Ui library
 
+## Screen Shots
+
+Starting view
+![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot1.png?raw=true)
+
+Pressed buttons
+![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot2.png?raw=true)
+
+After record
+![alt text](https://github.com/dor1202/Loop-machine/blob/main/ScreenShots/ScreenShot3.png?raw=true)
